@@ -1,0 +1,6 @@
+{
+  "name": "Наголоси НМТ",
+  "description": "Сучасний застосунок для вивчення та тренування правильних наголосів для підготовки до НМТ з української мови.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}

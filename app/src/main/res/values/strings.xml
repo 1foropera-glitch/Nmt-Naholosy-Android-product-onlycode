@@ -1,0 +1,30 @@
+<resources>
+    <string name="app_name">Наголоси НМТ</string>
+    <string name="empty_attribution_tag"></string>
+    <string name="empty_attribution_label">Default Attribution</string>
+    <string name="review_reminders_channel_name">Повторення слів</string>
+    <string name="review_reminders_channel_description">Нагадування про слова, готові до інтервального повторення</string>
+    <string name="review_reminder_title">Час повторити наголоси</string>
+    <plurals name="review_reminder_body">
+        <item quantity="one">До повторення доступне %1$d слово. Натисніть, щоб почати.</item>
+        <item quantity="few">До повторення доступні %1$d слова. Натисніть, щоб почати.</item>
+        <item quantity="many">До повторення доступно %1$d слів. Натисніть, щоб почати.</item>
+        <item quantity="other">До повторення доступно %1$d слова. Натисніть, щоб почати.</item>
+    </plurals>
+    <plurals name="review_reminder_new_title">
+        <item quantity="one">Нове слово до повторення: %1$d</item>
+        <item quantity="few">Нових слів до повторення: %1$d</item>
+        <item quantity="many">Нових слів до повторення: %1$d</item>
+        <item quantity="other">Нових слів до повторення: %1$d</item>
+    </plurals>
+    <plurals name="review_reminder_new_body">
+        <item quantity="one">Усього до повторення доступне %1$d слово. Натисніть, щоб почати.</item>
+        <item quantity="few">Усього до повторення доступні %1$d слова. Натисніть, щоб почати.</item>
+        <item quantity="many">Усього до повторення доступно %1$d слів. Натисніть, щоб почати.</item>
+        <item quantity="other">Усього до повторення доступно %1$d слова. Натисніть, щоб почати.</item>
+    </plurals>
+    <string name="review_reminders_blocked">Android блокує сповіщення. Увімкніть дозвіл для застосунку та каналу «Повторення слів».</string>
+    <string name="review_reminders_open_settings">Відкрити налаштування Android</string>
+    <string name="review_reminders_background_help">Якщо нагадування затримуються, відкрийте налаштування застосунку й для батареї виберіть «Без обмежень». На Xiaomi також дозвольте «Автозапуск».</string>
+    <string name="review_reminders_open_background_settings">Налаштувати роботу у фоні</string>
+</resources>

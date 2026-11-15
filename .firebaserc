@@ -1,0 +1,6 @@
+{
+  "projects": {
+    "dev": "intervalni-naholosy-nmt-dev-wr",
+    "prod": "intervalni-naholosy-nmt-prod"
+  }
+}

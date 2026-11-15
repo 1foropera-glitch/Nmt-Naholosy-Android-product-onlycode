@@ -1,0 +1,358 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    function sameUser(uid) { return request.auth != null && request.auth.uid == uid; }
+    function deleting(uid) { return sameUser(uid)
+      && exists(/databases/$(database)/documents/accountDeletionJobs/$(uid)); }
+    function owner(uid) { return sameUser(uid)
+      && !exists(/databases/$(database)/documents/accountDeletionJobs/$(uid)); }
+    function natural(value) { return value is int && value >= 0 && value <= 2147483647; }
+    function nonempty(value, limit) { return value is string && value.size() > 0 && value.size() <= limit; }
+    function catalogKey(key) {
+      return key in [
+        'v1_005d5fd63080d9a9acece7bac28112e7296824c23d98ffb8e48c600e98a6c72d',
+        'v1_006760e0493df8adf1a8503c951455079409740c9e87ce741083899e0a8d90a9',
+        'v1_00ff8e8f1eb51d665fd50d3606a547487baa2bf203679f412defbec35322d4c8',
+        'v1_01a75cbdd7e9c5bc334094b6b10b6479ec60ca3ed7f64db4ff2a3c04f1003e55',
+        'v1_02b968f6bb673accfdeaf41ad266c9e218f58b63f277f7888fda34d52e64c4ba',
+        'v1_04356a2b686419465a9ede6e35848ff132c0297cbfb56a48d23568cdddc05ee4',
+        'v1_0457be6da8531e00d3db610501080df657b56d8db6909cd42dbb74a7943892b2',
+        'v1_0597d5b14fd7731cd0a2be2f5299f028653e762c0af223bec338db7a2d35616e',
+        'v1_06d7a78a6d568f9a68a5497db8620ade6a9f5adeeb0238fc74e324cebde4485c',
+        'v1_06e7f3ac0febdceb1cbb10ac2da81558a14e21f6fb32d81985ee95c7d462fead',
+        'v1_0733a23eaf4f7bba7b29c786fa28c310a0129721ed388aa132c7fda09e47e2e0',
+        'v1_078ba4d158d67e573a529ca81143865760adfecf54fed263a0191fd243ff7a40',
+        'v1_079290bac0a6722d71797f889dbed855375b0f614270f6316f4f730bbd02d6b3',
+        'v1_0794cbcf9f088762637fd4fdbe22b817cefe1fbd83f79297742497fa65d62b87',
+        'v1_07d841b7a864b609b363f5594050efff851556978e3d397e6f7c935729b03763',
+        'v1_0846d78aca5349fb2fd8c404bf352b0a299023bc35621a7c413af8e76ec70e47',
+        'v1_090b938a50b9fc6f0327665bce6124913c9f2764468004ba4574afed7f340e94',
+        'v1_0997391bfc7a6bb362195c98fd05cdedfa0e65f5e41f54b9eba1fd37d5b8fbc5',
+        'v1_09a5557ea7e52625e341cbc8554e0c902b43b54e3a44b70ded677906d84182ff',
+        'v1_0b1d04346341dee84c6afdf55354ca127260632280f05da83e760f07c6572482',
+        'v1_0bb3ebfba3abb5fef53b4c9ea45c82aa7ee06281923170f32e54a4c7f0fb3820',
+        'v1_0cedb48148c9a739b31bc6b5e06aec94c48dabf26b23a7238670d898991fbb55',
+        'v1_0edf5881f1fa82b4ed2a29244f3e3f7ed89a3dc0f363a689cf84843b00ffdb80',
+        'v1_12a283d96c8546ec4706c076b795ba38bcb2010ba8dbcdd8a712b66d9ce4ed30',
+        'v1_13b4a000fa4adba25e737fff945242e062ce1011f0c2ac7b13ec7765531802f3',
+        'v1_15e554db4a645b32a508f62582f18901c0516a78170f068a01b118f569bf2a40',
+        'v1_1605fe28b91061a108db6f79fcc53006003539144b7a79e340456fc32cf117f4',
+        'v1_1637d44959231597726638b033c325bc792b106aa2127d1d792d5eeaa7f14369',
+        'v1_164a036f4a584e62e425f7f0dbd726385919ddbfedc17c9f6d6955dbeb92c6a3',
+        'v1_18e679c71c3be73cf42fceb8b8cd38099e658ac1a6d9ce83885147e9b4eef96d',
+        'v1_1fe998cedc7bc113c650702ee9305b132104f86b468c308c2cce0894a8678f5e',
+        'v1_20343605aba6118064137ccc4755fb14b0f334455e87e59df47760fc6b809b7c',
+        'v1_20aa85c23ffa90e8b4dca1f2410486920f7af246a6fcee82914fe3cec3761071',
+        'v1_23f77e3e28551aba7d710451b34a62348a1de55e5fa902a16a1432017c7910d9',
+        'v1_24148428f1c08f13968767ba1480d1d72aaf6623cfe3e732c2d4cfc6fbe75feb',
+        'v1_24cce0a08bd9e83401a49cd9a806d093c1796ce5bae14c5bec73278b0948b522',
+        'v1_29222c3ff82d8d810c05696bf79f5c04931b02aa5c8f94d300a89b859c745138',
+        'v1_29dc400e921e03ea390a3e7e3d9c318e9681fde686ca98fc19b8cf806d1c195d',
+        'v1_2af679cc311aa7bccdb0c718a8eac5cdc15cb2511807277a374c5d4297218905',
+        'v1_2cdc0ffc7c09559b4eeea38cbd85f897f7ffd2335f1ee3faef0a63f29af83f23',
+        'v1_2ce729048f9f48f102ed0ceef30ed268e8a9ae50101ee5010a91484a29ad6aa1',
+        'v1_2cf6fe4ec1a0f816f73047f17db1a241c68e26b8e61bd7237917a00ea480789a',
+        'v1_2cfdf6ebc8f8fac67bd311b602b5bf0db8e644d12152fb844dc16f4c6e8f8e09',
+        'v1_2cfee1cc32613c762525630ed2f66fef01a3a29453d67831df89f586a18932cc',
+        'v1_2d32fab614e839de5bf3369b34bfef2a5f332c49e0795eee06aa096d47c6af4e',
+        'v1_2d87e63f54141fa1fb17da3a5cd0eb9ba47e9ce919611c481004b961a6d367e3',
+        'v1_2fbdae27eef0a95f9556c2634f65165c7cad9b3fffaf11421f9d5f8141a273c9',
+        'v1_313c9a41a68e77f9cd463683670ec48ed185aacd3b6c0ae7a186f70d0af3280b',
+        'v1_31610d91b9d1775e9a59c78a984ca5a01efab097519a18b473fc15f6a8cba118',
+        'v1_31a21f4fe8593f67e25285df055954ee9e478917da6b17637810c3f8f4077304',
+        'v1_31d6d8446fdead308ddc345670d0e7a3ddb9c3e2ecccb6fa39b5180fe2380929',
+        'v1_3236c250b799ffd0fc319680d89cfb71f921db7470a854cfa00be64aba3c1789',
+        'v1_32b901e786f0930c6c50fdc0355539cb0083424e4d8842d7996d9991ba5049db',
+        'v1_3349f0a50be3053cea707d9db5eab5650c7dd5d68acd98602179d7176190007f',
+        'v1_33ae361895e689e26c060dc4d17633e36bad99f7b9cb71a5d2354e63768e3a5d',
+        'v1_37736482bec39acfa4c5b02ac21a7bbab7375236b397ffd540175ca62a072264',
+        'v1_37a1a898f27831907e3b3691d4ee6ed93d96fe405d9822c56c1dff834edef115',
+        'v1_38601e2e33e0afcf006395b74ea6817f0775fc22a973598e3f29387ba3b89537',
+        'v1_39b620ae60b9f01e630fdef8f9dd9e145a8af0cc4ef7e004eb04bdda950817e9',
+        'v1_39fb9685c875e1d5de9f8b40c2af6789735b3ef9a4f73a9ef5fc65bb7fbbe46c',
+        'v1_3b0ad5723d8c3cec0f47ce17a2af3ff47179d95d0abf380cf8fa9393f318431c',
+        'v1_3b6096b085738af468baa75fea5aeb26a3580419576211819ce9f0f20ca0619d',
+        'v1_3b8937c21d1004c9869055941702d19cec8a2fcb802643566dfe0ccc206a3ca0',
+        'v1_3be72036203aae93b5ac2a309389ab7512a7ae6f430371555aa18841413ae253',
+        'v1_3befd74a1b8b8c898dd252092db9957ebd15765f89fb9a1138510f61edd3d4ed',
+        'v1_3cd88848074aa1054cc86d444f5a3c075a944d80c3d136b66549a9260a06a05b',
+        'v1_3cf62f92eeb79e38695141842e3f3080d7a8d5259d94301f2cba0ec169a7456b',
+        'v1_3d063f956a8d37775382b972d7b98eca2c6a0eb3dc84bda5f20a7be9a7f6149c',
+        'v1_402ec111e5cb67d7f38f5b4fb7eae4461bf8d2ee462e6d197fc2c01672693010',
+        'v1_40fc3455db2cb5d55733f5ffbec4c65a218755a2006962c890898729126e6d55',
+        'v1_4162dc821a4db9293d9599c92afdbf2847f23c94114bf2ec312c9dd4d77902c4',
+        'v1_42bf5e69c3cd1d8a0a921438eeb0cdd682207f6c37d4cd18af3180e10b59d485',
+        'v1_42eb4e4753b290e4371927d3f28cfb230706c63b1dd754d12156974b35bcc276',
+        'v1_433246713da44d1ba6778bc310b00ac77f64e2482f4ee0611b0ef63fc0bb40b6',
+        'v1_471472497610c23b7d6076d33e24e6afcf2b84db2bf9b329a441bad6e12c582a',
+        'v1_47ae4c3690bdfd0b616881b223935147839e76361b54b22bb39dd03433a1feb6',
+        'v1_49a7c92bfbfd1a3627d6fce445b220522f429bcca48c2a4ac9143be7c98a0b85',
+        'v1_4a233176287fe6aa4c1e3170e2fbec7d6caff3bb141890d506d9452fb6d522e4',
+        'v1_4a6736e8f7e08dbdc601c4087b82aba57f3c881bf22eaa7ba4f35d9a461d7826',
+        'v1_4ae5bce955b1b6e4ae5b5d982799b28866725c21e6d9311bf45b6c8fd7acead9',
+        'v1_4afbb72e7b075ee7f90db81db77eb597c877250c9f89492e8e9c07ce9e911299',
+        'v1_4c6ed47204d99559a45ee948472e08a5f49d20f29264703f7d4086193e271f9c',
+        'v1_4c9a92ace960875a2f9ceaa7d8beb031196249cc2db7f239e4cbf71760761052',
+        'v1_4c9c6a6b7ee288005b7275e15a8564595a7f6295fd0ef4efdf1d068d6c40585e',
+        'v1_4cc397216bd0258dec9b1278bc680e60f270604ee0c22de50c7e57782d037235',
+        'v1_4e0effd6dded06d38fd9b250a3f7d678d025884f3acd458077b543a0d1e690c9',
+        'v1_500258a2bbbfe720e5cff64e52e29fdbbd6a9451ed7463364d3bb5465daa779d',
+        'v1_50376bf5c8539ef08b46fae8d5659c325307cebca04c9b4ceefa79832e5c7814',
+        'v1_50675b424b160a015e182d7b0c6c01ef7bf36935a532ffbe760684f7b9c8d130',
+        'v1_525a631a6c6ab0ad72a50a092de3cc4b581f907e390470d56ab5e818dc3b6b8a',
+        'v1_527b6a9f75ad32ecbc62542c395ed21dea744c891f975bdaa940f269a45587c1',
+        'v1_552bfb4521846e03fdfca8e5047221e3453a81e37664964773fc5fde69ca4729',
+        'v1_57869e283bfe546dcc8b515268dadb81049bb42cb68709e9e29fd1df9af2bd0a',
+        'v1_59e7817533d79c091e9d818c2501179432c9af3cf097f7d191db8e715ab67073',
+        'v1_5bb4e8a13e69a39e6863d1cd75bd61eb573eddad1c903b4bff017194e9163ed6',
+        'v1_5e3fca8274227b83176dcfd9137089feec5825aaea5ce3e7d6c95340a3363e95',
+        'v1_5f1c794d305705b2d7b9a705753276e128f1be2078e816fd6d5c642009cdaa6b',
+        'v1_6402fe859252b5376c12a972b0acb4e16e9decdba049506f87a7e90041ce6d93',
+        'v1_649f0a8177cdaedc49ff1ab579344d818eae8db104af1d476479e52b9260c50f',
+        'v1_681f2c3fb3993059b3a8582cdf4486d1cd532f5ae72ca569f94a79b60ae4cdaf',
+        'v1_686641f7ea1b4e7b9a84197407fd9793ed8f6c47487b4f08d307c84fd21af379',
+        'v1_68f7a4044cc4b2eeb367514ef36263c580ebbcdf25ec0007a2280ff77f549a5d',
+        'v1_69a9dc0797d809476c0beebaf25304aa7c62abbbbc4abb03803f8fb5d457a1a0',
+        'v1_6aa2281120740f3b435151517a4e299760e57aa3c246653b1c268c17c1173b21',
+        'v1_6b43438a8feac7b10663d996b14163cbd76a34ccb6b612fecf78aac5a0b32834',
+        'v1_6df4bf4e15a8dedae7005928cb12d86cae37a958914b08105da46ac546db2cd6',
+        'v1_7061167fbdf70a8a745dd45e27039883feb3e5f834783d73dc5a91f30e69a724',
+        'v1_70ef86182469cac18fc18c76a9f8b79486dcda105bcfb3e1ad1226e251237ad2',
+        'v1_724afcf592a22219daaf2bf0dce6c87d645428477e83c7d09f595e7f1c1e4581',
+        'v1_725d23a36d7fde6edbe9851c4a95bf5253b135dfde5349a53046dd8c89ba7f38',
+        'v1_73374253da699b59b781d21066bd98ca04ef50a2f25660ff697dc5b21532674f',
+        'v1_73432cde40800d12133609e7fb49f18001fecf60f23ad9ac6a10df0c54f31296',
+        'v1_747b293edc24f63fcc8f333a283c9b95c0eb38ea8c097c7971bdbf4a1b2b75ca',
+        'v1_74a40a13a871bb4def5cad04e81c7046af574f239f326d21404b89ff553b3a4c',
+        'v1_761ff05059b56a6f5bc8d30fa95747ecf88694c81e386c3a2456c104c8cc3636',
+        'v1_78577f03b1256d3e64200ead307e627ae03b877b39ead08667b82accda444ccf',
+        'v1_78cb728b6a56f6511c0798bcbf3e133dd96ba4aeeefd8d407a4557411f13e8ed',
+        'v1_797afc625fb4266428a3ad7cef6f9e83aa8f035d9c6725a22e5ccb7667a1ea1e',
+        'v1_7a485bdf48c8593fdb98261ff98004d64c680f872775f98110951e4b923eaff4',
+        'v1_7d770efc10d2f9f0633437280416f5301e3760cc3c6db1e11d467e8a47c395ab',
+        'v1_7ef8179a29cd9d20546cf18102b873357402fb89fe4956b1c2c3a07699d6ea37',
+        'v1_8030346f99459bf1531f05259076bdf270439e9a25e540746abc0e1eef25d08c',
+        'v1_81d01656deb6da2643f4a75967c7af8d95a979d1f34451cdaa355bc0c8c4ba19',
+        'v1_8265c4c519bf9ce573ede1ba7913beeeb59c1f9f4136b7fb00031ed551572e27',
+        'v1_827e94af2e73af9bb295b5a6f0867b0eb8249462f1602e373ca81cc1c2d5f963',
+        'v1_8463709244cb4b46de36775a26ddac0d988b2e293613356170b92f1ddf05f35d',
+        'v1_85eb400db5c95ef9de878655fe61e4251b8e0e639477f5fb5234d5dd73f68a6a',
+        'v1_88b30385f6b2e31d54851d00706e67613f150e300abcfa67f98228e42792308e',
+        'v1_8a6c0fe70af60ba116858cb22ed3c0b42572ca89f15f80106cc0cc94e31ad55c',
+        'v1_8bb0873b8ef06d0115dd0c20d3bf2ba6e5eecfff8a4d7981c52935c322755ccb',
+        'v1_8c9de718a656e31cc4eca427e9da7d002f68815985f2b6043514455d026da172',
+        'v1_8cc2b78740174477efad758f557016a05225a05bb0ff4a91a39650f6bede64eb',
+        'v1_8e1522d43644ac7e8261e14319630d6d4092a20eb531cd74f4a455441a5820da',
+        'v1_8ea35e62464340bcd9dfd86c08590a828df3f22b82310bb44b54ce6e754c32bd',
+        'v1_8ed2b45bb40c0d265b150bd3dfdd6f7c4fde84456576c5acb24a0496cec5bf2c',
+        'v1_8f2066f7ce6d365762cf6677f6e3d9a46d32b5e63342d3ec86e67513fa74b2b1',
+        'v1_8f5aba169743d75703cc5e2bad89b7ae7c193b33084ed76dcb2d94ada793fbcf',
+        'v1_90d089cd5656a5f0708df224b47fd9fed581d9ce9dcc2e8b0c2df96aaab88c7f',
+        'v1_917801a2de98b148ab9de4b431441d53ff1d1ba5624b1cf645c6b231b55e3964',
+        'v1_92b75afbfb41f93f0562c512ccebda9add3baf4893bb7b9ac86d8f0e3a34798a',
+        'v1_9378bac865c4794c834cbad8d3dbb83bc7ad44a5f371afc21d3ae65226b4beae',
+        'v1_943240e36fa2839b42bf93a801deb10097a8b7ab2c83832084d10057e2fdd92a',
+        'v1_94c1a7551ae42b6441a504d849afd400527ce87e92b82f65e8e36683d2df60b6',
+        'v1_9520b4d145ffaab92d57c98c61ddb67a92fa99f0e3a4ecffb09a834476e34aae',
+        'v1_961e01a1206e709aefebbd2128fa97c92d9db64757bd36ed98f948f4b2e6f48a',
+        'v1_9661a3331c5982f273bfa49a35c4a7c95976726a868cb145c104be5cfc3a8b5b',
+        'v1_96c45d2292adfe7a153eebe947519e5a634015b449d25bcdc46b7928fb4deb17',
+        'v1_97bd75e9c01baa1adb876b8766e9e7d09b74a275b15217c96543c89606580995',
+        'v1_98cd0672c95eda068e17e97b4c797e5dd1863adfb8b968aef2478b79322b474c',
+        'v1_9b4bdeb4275b47024a4cd93ae53baa3c778fde4e6b2477215aaf3879534b238b',
+        'v1_9bf827245edc756184e89215c954bb5902f7f4510bf42606de10adad51bd1e49',
+        'v1_9cbcb14b73dd681f2b16810f3693a45156cf48fa459c3903dd485fc75659614e',
+        'v1_9cf66706fe084c49b73d8f78f42a06083605962fa7fe975b2ee112fac4cb59b7',
+        'v1_9d29a9098eaf13ca83685c8f0aad7e84e221c7da98eb3ea693bb716e8aba7f9c',
+        'v1_9e0da7c032a287ba940acbabc39bb973477d31beb9827b86bd492c3a3197ddf6',
+        'v1_9ee8296c9838741f59726aabc62512ac8d0b896a56b037e033b0014d0e1c286c',
+        'v1_9ef1370ae1ce768ed45c4bee05c55b1f1f8232e1b303fb29cef3bb0f58443af8',
+        'v1_9fb7677c9dafd62e32da4e36ee06bc1c93a01a12ee28fec79a3755148cba2ae8',
+        'v1_a2599efb61a8d020a2fc53e4b54dbea2d26d178d8dfbf2f13e43af9890a82291',
+        'v1_a29a05d0f6d5f4c95608d2aa07a16e5dce4f83d07353a72e5f83ab10eee562d6',
+        'v1_a30385f823dccf1ce108fe37d7a75fdf723312370456c89d02aaa06924703606',
+        'v1_a4bac76da89991df93785b09de301f1e18f88468cfef1bce15b5e0a1ad41c6f6',
+        'v1_a80162ca24872b3b261cc98457f39cda6a0cbdf50ce2bd792a8260654b0a9627',
+        'v1_a8a8b55db9c79e31b9b11c0249b988e8f59cf47cfa80b013d6ae9a245bfa85a5',
+        'v1_aa9da52c27e1bd457c8f5e8b044380062f87561e95f382ac7f64121b0079c0fe',
+        'v1_aacf1818d89c1d8eb962e542c9dee37614b367993e84624a912b86c842141cd4',
+        'v1_ab568a1beb89fa7890abbb405aa0b7c6399386ba53a4eec59fb95ae79373ae26',
+        'v1_ac4e404934e719d88b46ed91d4b15e4b41c5409187c4d8d8beda372bfef38520',
+        'v1_acdfff26905a9ad762f7d12acb9b958d4309bc16800e914a16bdde29031b7471',
+        'v1_ad0a77ce9ee46e29af7d4c4138287940ec4b409903fa9371099c7cd1522c175f',
+        'v1_ae2347c13bcc848d61970e924a6eb87be8e9a2c9d0a7855fc41389af93cc1478',
+        'v1_af4602a2ac64c549d3bc14700d90fe6d18c9a0535e60422730ccf1370e929b72',
+        'v1_af467e229a2f521c0843b80a7b4e0b5861af3e103f3a88604e51217f39e19955',
+        'v1_b433399fcc8fe463ce4c31f6706564806f3dec3af617d9cd65d1271caa748834',
+        'v1_b4ce61a2c139aee0d481ff4a40927a19e0eadafd79e62493631697b8de8458e8',
+        'v1_b53a48baa2f2bcf7410a9d0a08ca54cf0c4dc1eff55594798d98c954786814e5',
+        'v1_b5ff3a5fa9344986d08dd8020d67d02930998babf5d114351f79556fdc58bf74',
+        'v1_b78a1db50ddd71d50aedb70b067861efba1b0d4772927a41f121928327582fc3',
+        'v1_bbfb53842ea853f128f0fa82f923eac339d5d1834b69c845bfa63af23101a5b7',
+        'v1_bf2b71b65c0f04c00394bf89f9d7697f1319b64c1b41e95b993d08c241a72607',
+        'v1_bf5c580fe9c2cb6fc06ff4e1d32da1ac1ff282aa9e58d3e3e947bcc6892b5001',
+        'v1_c1d2c731d4a76a63a916d3424d97cd2ec5669f765a72ebd8882fac19f23ee401',
+        'v1_c2a6c70c6a0978eb722ebf93ed5b84b64e415bcbe5b85d043c26ad1f658e6fec',
+        'v1_c2d87046ef06efe73ecf90779aeb0e3a1d1873cc55943fa23ef02282dda6662d',
+        'v1_c441bcb791701eb658a6cd9dc9320072ac528602022145bcfca110af4683f69e',
+        'v1_c5ba1352ae4e77eb8641c690526b2ec2507248008e16dbc327871baca5ffc0d6',
+        'v1_c696eaab852c69b1e147eadbd66bbcdf0e63a485b6616df5b50ea639dd8fa4da',
+        'v1_c6d6b20662e62c4acc7e158fc9f522b35c23fdbb7b7d289a32636540849632a7',
+        'v1_cbc4b4e1f456e42c18338c5ca63f790c53425c6f43e9ff04d93f0ccc8fe82467',
+        'v1_cc5275baf168e2829e4b712d4388ff1da07532be14860b39f61552325695f9ec',
+        'v1_cea52c15f5e021a6d8d5524afca19f5bf9a3738bd839103e9c7bfa6f5e039909',
+        'v1_cef73c7341b8ebf7e0a3f45e3280211ea1ce263b18cd417241298f6984acb32d',
+        'v1_cf03473a9e805ffd4bd06fa9839809e96bf79d4079bffd427d6e747432d3e8c8',
+        'v1_cf95281ddb22bc8d5a78563e0fd8530b74d11c3928a407eddc984521f687b02f',
+        'v1_d29425097d6166ca4e311a742ac630078877fe6845a1078e58430431fb50e2c6',
+        'v1_d4920a37e4a0e425a8c5915e69c5fdd6f403e6585f89b999ef1461949973cded',
+        'v1_d5652fcf7ee5f0e38196d6a2c8a782443480816a6f815874b11263ab14394608',
+        'v1_d5b46c6405279743ff08b3f0edbc57543dbee633ed16b8d09a8496646c5f3db9',
+        'v1_d6e3b6f2956dd2a799fd1b3064c73e9959bee76dcdd798ec8a0d762adcd94741',
+        'v1_d71f2adb10f29c916b73b9619952324945f970796d93da32a551cd130afeaa34',
+        'v1_d753616907a8830cc1d39c0c3b9a20645aa4e8f07f54a3c32de0991d636c3867',
+        'v1_d7ec89f624cd23200d0842b40dae17c336a9d3901bbee3ae81ac23a9f98e5cdc',
+        'v1_d83c4c5b2e7bb6655e7d9308a091538e6d197a99ec64a19ecef366dc540034e1',
+        'v1_d8c2c1f02295edf251c7a6536298460018e7f2f836055b5498ae32c83fc0b3df',
+        'v1_d8eca2d8e906d4a245176fee0375dba3ce15dd8cd480307aeccbfaecb06a5885',
+        'v1_d9f663ca2ea2e1b1b6fb182ca85051ed7f94e66c4d66280f51558c7a368b24d9',
+        'v1_dbe45954a0c8e52175386e7a332ed53e14ee46866226a80aa1040fe5a8da5488',
+        'v1_dcfb0860718ee4945349e00fd0ab9a34aa754f9cc1b6ba86e9357ba85bade91f',
+        'v1_dfa2acc63bbaafafce65b9aca60e03f607e0ca56f5ce3ab9725661166462e223',
+        'v1_e0d5002bc11844955d56a4542aded4d5bbd9ee5e6063cfb1265c8218100a008a',
+        'v1_e19eed5b356ce50fb5893c804a365b02ebd02431a6e52c339eb9295755c6ba0a',
+        'v1_e1f89c94c53112815ece18b4608775734352d55fe496759cb31ddf158a8e6d1e',
+        'v1_e6ae018f46459106f47ceedbf4bdef2d514d0445301a622e2acc7a309811d79e',
+        'v1_e6ea61fe1031182987981a9cdbc128596979f289358d90e211b45adeab663ba4',
+        'v1_e6f1402e36a114fce6c3e644df41b918136673c7bf6137ea5cd59945b7d7692e',
+        'v1_e8101fe76715db5af9b1f5e459bff2a8a095c68665a380a0ceac7792b3044253',
+        'v1_e9770edc208b6a7170d05b75900bb562ef37f9c42ade4150910cd514b5cb1931',
+        'v1_ea4c1dc7f96b61c2c0c12f34b4860e36cc5d3e95728324dcad97b5b146b460a6',
+        'v1_eb0800083eb6aafc02464459465d409e793a7668e1fc73f7cac8faf9cb38282c',
+        'v1_ecd1097ab992cae424e274f5a98dcffb7b749f4e9a0efcc03eaa4a05a1b2f3f5',
+        'v1_ef2cdb34fa4c2c53e506128db5f12e16273488e4baf2de3846d875d08705c084',
+        'v1_effd6d3c8bb75d0ea95325d1e7f481f001d362ac3c88845f01518d3a10f9b887',
+        'v1_f0d690e8182f50e2be1d197fa6bb0f7f6e717d2e8632fac86083ad006dce6c6b',
+        'v1_f1add779d00b6c0eed40159643feb9db2360a012043bf6ed92f7978fa964f199',
+        'v1_f1cdf442aa0327c8041df221ec5d915827446c2780d34da18369eab52e5a0969',
+        'v1_f3e7719b33f3dec95154494de79eb213dd483208e8e93f1fd77564da1726fb5b',
+        'v1_f7620b1a680cf4d8b3a15455d82089c76a71b37f4c760367c1812d7c677a2987',
+        'v1_f970ad99236b6b36ca4dac295f1c9a12572e03257630e255b521743672284555',
+        'v1_fa8431286a0e89f1b2190293d04124f986e27b3299c3a6f9b0d5f7eae9147ac6',
+        'v1_fb4a3420f49ba3a62d1aa5c7cfc83e8489f384064d3c37a6b91800931c06e293',
+        'v1_fdc1778c220a7b69d599d912c1297e2e0282fb69490b37494f00ef6105090e16',
+        'v1_fe1a2883092f5522f832221c2254b10b2be70fa6575f8dea3390b383f1f5e368',
+        'v1_fed25a65a2ac538bec6170142649ef5d24d806f2dda1d05189f0b83bcd36e303'
+      ];
+    }
+    function userPath(uid) { return /databases/$(database)/documents/users/$(uid); }
+    function validProfile(data) {
+      return data.keys().hasOnly(['schemaVersion', 'generation', 'version', 'migrationCompleted', 'lastResetId', 'createdAt', 'updatedAt'])
+        && data.keys().hasAll(['schemaVersion', 'generation', 'version', 'migrationCompleted', 'lastResetId', 'createdAt', 'updatedAt'])
+        && data.schemaVersion == 2 && natural(data.generation) && natural(data.version)
+        && data.migrationCompleted is bool && data.lastResetId is string && data.lastResetId.size() <= 128
+        && data.createdAt is timestamp && data.updatedAt is timestamp;
+    }
+    function currentEpoch(uid, epoch) {
+      return get(userPath(uid)).data.schemaVersion == 2
+        && epoch == string(get(userPath(uid)).data.generation);
+    }
+    function validProgress(data, key) {
+      return catalogKey(key)
+        && data.keys().hasOnly(['schemaVersion', 'wordKey', 'box', 'status', 'dueAt', 'correctCount', 'wrongCount', 'lapseCount', 'lastReviewedAt', 'updatedAt', 'revision', 'deviceId', 'counters', 'counterWriter'])
+        && data.keys().hasAll(['schemaVersion', 'wordKey', 'box', 'status', 'dueAt', 'correctCount', 'wrongCount', 'lapseCount', 'lastReviewedAt', 'updatedAt', 'revision', 'deviceId', 'counters'])
+        && data.schemaVersion == 2 && data.wordKey == key
+        && data.box is int && data.box >= 1 && data.box <= 7
+        && ((data.status == 'learning' && data.dueAt is timestamp)
+          || (data.status == 'learned' && data.box == 7 && data.dueAt == null))
+        && natural(data.correctCount) && natural(data.wrongCount) && natural(data.lapseCount)
+        && data.lastReviewedAt is timestamp && data.updatedAt is timestamp
+        && natural(data.revision) && nonempty(data.deviceId, 128)
+        && data.counters is map && data.counters.size() <= 512
+        && data.counterWriter is string && data.counterWriter.matches('^[a-zA-Z0-9_-]{1,128}$');
+    }
+    function validCounter(c) {
+      return c is map && c.keys().hasOnly(['correct', 'wrong', 'lapses'])
+        && natural(c.correct) && natural(c.wrong) && natural(c.lapses);
+    }
+    function counterDelta(data, old) {
+      let zero = {'correct': 0, 'wrong': 0, 'lapses': 0};
+      let before = old.get('counters', {});
+      let key = data.counterWriter;
+      let a = before.get(key, zero);
+      let b = data.counters.get(key, zero);
+      return data.counters.diff(before).affectedKeys().hasOnly([key])
+        && data.counters.keys().hasAll(before.keys())
+        && validCounter(a) && validCounter(b)
+        && b.correct >= a.correct && b.wrong >= a.wrong && b.lapses >= a.lapses
+        && data.correctCount == old.get('correctCount', 0) + b.correct - a.correct
+        && data.wrongCount == old.get('wrongCount', 0) + b.wrong - a.wrong
+        && data.lapseCount == old.get('lapseCount', 0) + b.lapses - a.lapses;
+    }
+    function versionedProgress(uid, epoch) {
+      return owner(uid) && currentEpoch(uid, epoch)
+        && getAfter(userPath(uid)).data.generation == get(userPath(uid)).data.generation
+        && getAfter(userPath(uid)).data.version == get(userPath(uid)).data.version + 1;
+    }
+    match /users/{uid} {
+      allow read: if sameUser(uid);
+      allow create: if owner(uid) && validProfile(request.resource.data)
+        && request.resource.data.generation == 0 && request.resource.data.version == 0;
+      allow update: if owner(uid) && validProfile(request.resource.data)
+        && request.resource.data.createdAt == resource.data.createdAt
+        && ((resource.data.schemaVersion == 1 && request.resource.data.generation == 0 && request.resource.data.version == 0)
+          || (resource.data.schemaVersion == 2
+            && request.resource.data.generation >= resource.data.generation
+            && request.resource.data.generation <= resource.data.generation + 1
+            && request.resource.data.version >= resource.data.version
+            && request.resource.data.version <= resource.data.version + 1
+            && (!resource.data.migrationCompleted || request.resource.data.migrationCompleted)
+            && (request.resource.data.generation == resource.data.generation
+              || (request.resource.data.version == resource.data.version + 1
+                && nonempty(request.resource.data.lastResetId, 128)
+                && request.resource.data.lastResetId != resource.data.lastResetId
+                && getAfter(/databases/$(database)/documents/users/$(uid)/resetRequests/$(request.resource.data.lastResetId)).data.generation == request.resource.data.generation))));
+      allow delete: if deleting(uid);
+      // Legacy state is readable for one-time migration, but old clients cannot resurrect it.
+      match /wordProgress/{key} { allow read: if owner(uid); allow write: if false; }
+      match /epochs/{epoch}/wordProgress/{key} {
+        allow read: if owner(uid) && currentEpoch(uid, epoch);
+        allow create: if versionedProgress(uid, epoch) && validProgress(request.resource.data, key)
+          && counterDelta(request.resource.data, {});
+        allow update: if versionedProgress(uid, epoch) && validProgress(request.resource.data, key)
+          && counterDelta(request.resource.data, resource.data);
+      }
+      match /entitlements/{id} { allow read: if owner(uid); allow write: if false; }
+      match /resetRequests/{requestId} {
+        allow read: if owner(uid);
+        allow create: if owner(uid)
+          && request.resource.data.keys().hasOnly(['generation', 'createdAt'])
+          && request.resource.data.createdAt == request.time
+          && natural(request.resource.data.generation)
+          && getAfter(userPath(uid)).data.generation == get(userPath(uid)).data.generation + 1
+          && request.resource.data.generation == getAfter(userPath(uid)).data.generation
+          && getAfter(userPath(uid)).data.lastResetId == requestId;
+        allow update, delete: if false;
+      }
+      // The deletion fence blocks every create/update, including stale devices. Only cleanup remains.
+      match /{document=**} {
+        allow read, delete: if deleting(uid);
+      }
+    }
+    match /accountDeletionJobs/{uid} {
+      allow read: if sameUser(uid);
+      allow create: if sameUser(uid)
+        && request.auth.token.firebase.sign_in_provider == 'google.com'
+        && request.auth.token.auth_time >= request.time.toMillis() / 1000 - 300
+        && request.resource.data.keys().hasOnly(['createdAt', 'generation'])
+        && request.resource.data.createdAt == request.time
+        && natural(request.resource.data.generation)
+        && ((!exists(userPath(uid)) && request.resource.data.generation == 0)
+          || request.resource.data.generation == get(userPath(uid)).data.generation);
+      // Admin cleanup only after Auth deletion is confirmed and old ID tokens have expired.
+      allow update, delete: if false;
+    }
+    // Purchase tokens and entitlement mutations are accessible only through the Admin SDK.
+    match /{document=**} { allow read, write: if false; }
+  }
+}

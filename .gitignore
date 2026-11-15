@@ -1,0 +1,121 @@
+# -----------------------------------------------------------------------------
+# Android & Gradle
+# -----------------------------------------------------------------------------
+*.iml
+.gradle
+.kotlin
+local.properties
+captures/
+.externalNativeBuild
+.cxx
+*.hprof
+
+# Build outputs & packages (do not commit binaries to Git)
+build/
+**/build/
+*.apk
+*.ap_
+*.aab
+app/release/
+release/
+
+# -----------------------------------------------------------------------------
+# Android Studio / JetBrains IDEA (Machine & user-specific files)
+# -----------------------------------------------------------------------------
+/.idea/caches/
+/.idea/libraries/
+/.idea/modules.xml
+/.idea/workspace.xml
+/.idea/navEditor.xml
+/.idea/assetWizardSettings.xml
+/.idea/deploymentTargetSelector.xml
+/.idea/shelf/
+/.idea/tasks.xml
+/.idea/usage.statistics.xml
+/.idea/androidTestResults.xml
+
+# Visual Studio Code
+.vscode/
+
+# -----------------------------------------------------------------------------
+# OS Generated Files
+# -----------------------------------------------------------------------------
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+$RECYCLE.BIN/
+
+# -----------------------------------------------------------------------------
+# Keystores, Certificates & Signing Secrets
+# -----------------------------------------------------------------------------
+debug.keystore
+*.jks
+*.keystore
+*.p12
+*.pem
+*.key
+*.crt
+*.der
+release.properties
+/signing/release-signing.local.ps1
+/signing/*.jks
+/signing/*.pem
+/signing/*.key
+
+# -----------------------------------------------------------------------------
+# Firebase & Google Services (API secrets & Service Accounts)
+# -----------------------------------------------------------------------------
+**/google-services.json
+app/google-services.json
+app/src/debug/google-services.json
+app/src/release/google-services.json
+*-firebase-adminsdk-*.json
+service-account*.json
+.firebase/
+
+# -----------------------------------------------------------------------------
+# Environment & Local Configuration
+# -----------------------------------------------------------------------------
+.env
+.env.*
+!.env.example
+functions/.env*
+.local-verification/
+.scratch/
+
+# -----------------------------------------------------------------------------
+# Node.js, JavaScript & Cloudflare Workers
+# -----------------------------------------------------------------------------
+node_modules/
+dist/
+.wrangler/
+.dev.vars*
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+
+# -----------------------------------------------------------------------------
+# Python Bytecode & Cache
+# -----------------------------------------------------------------------------
+__pycache__/
+*.py[cod]
+*$py.class
+*.pyo
+.pytest_cache/
+.coverage
+
+# -----------------------------------------------------------------------------
+# Logs
+# -----------------------------------------------------------------------------
+*.log
+firebase-debug.log
+firebase-debug.*.log
+firestore-debug.log
+ui-debug.log
+.agents/

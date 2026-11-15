@@ -1,0 +1,14 @@
+{
+  "$schema": "node_modules/wrangler/config-schema.json",
+  "name": "naholosy-free-prototype",
+  "main": "src/index.js",
+  "compatibility_date": "2026-07-30",
+  "workers_dev": true,
+  "preview_urls": false,
+  "send_metrics": false,
+  "logpush": false,
+  "observability": { "enabled": false }
+  // Synthetic probes only. No Firebase/Play credentials, storage, cron or paid bindings.
+  // PROBE_TOKEN is a Wrangler secret; never add it to this file.
+  // No cpu_ms override: the account's Free limits apply after deployment.
+}
